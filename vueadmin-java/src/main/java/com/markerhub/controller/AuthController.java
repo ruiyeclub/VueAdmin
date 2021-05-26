@@ -45,7 +45,7 @@ public class AuthController extends BaseController{
 
 		redisUtil.hset(Const.CAPTCHA_KEY, key, code, 120);
 
-		return Result.succ(
+		return Result.success(
 				MapUtil.builder()
 						.put("token", key)
 						.put("captchaImg", base64Img)
@@ -64,7 +64,7 @@ public class AuthController extends BaseController{
 
 		SysUser sysUser = sysUserService.getByUsername(principal.getName());
 
-		return Result.succ(MapUtil.builder()
+		return Result.success(MapUtil.builder()
 				.put("id", sysUser.getId())
 				.put("username", sysUser.getUsername())
 				.put("avatar", sysUser.getAvatar())

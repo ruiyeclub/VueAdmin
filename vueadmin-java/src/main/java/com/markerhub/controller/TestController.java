@@ -20,7 +20,7 @@ public class TestController {
 	@PreAuthorize("hasRole('admin')")
 	@GetMapping("/test")
 	public Result test() {
-		return Result.succ(sysUserService.list());
+		return Result.success(sysUserService.list());
 	}
 
 	// 普通用户、超级管理员
@@ -35,7 +35,7 @@ public class TestController {
 
 		System.out.println("匹配结果：" + matches);
 
-		return Result.succ(password);
+		return Result.success(password);
 	}
 
 }

@@ -25,21 +25,21 @@ public class GlobalExceptionHandler {
 		ObjectError objectError = result.getAllErrors().stream().findFirst().get();
 
 		log.error("实体校验异常：----------------{}", objectError.getDefaultMessage());
-		return Result.fail(objectError.getDefaultMessage());
+		return Result.failed(objectError.getDefaultMessage());
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = IllegalArgumentException.class)
 	public Result handler(IllegalArgumentException e) {
 		log.error("Assert异常：----------------{}", e.getMessage());
-		return Result.fail(e.getMessage());
+		return Result.failed(e.getMessage());
 	}
 
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(value = RuntimeException.class)
 	public Result handler(RuntimeException e) {
 		log.error("运行时异常：----------------{}", e.getMessage());
-		return Result.fail(e.getMessage());
+		return Result.failed(e.getMessage());
 	}
 
 }

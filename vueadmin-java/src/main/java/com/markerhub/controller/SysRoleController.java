@@ -44,7 +44,7 @@ public class SysRoleController extends BaseController {
 		List<Long> menuIds = roleMenus.stream().map(p -> p.getMenuId()).collect(Collectors.toList());
 
 		sysRole.setMenuIds(menuIds);
-		return Result.succ(sysRole);
+		return Result.success(sysRole);
 	}
 
 	@PreAuthorize("hasAuthority('sys:role:list')")
@@ -56,7 +56,7 @@ public class SysRoleController extends BaseController {
 						.like(StrUtil.isNotBlank(name), "name", name)
 		);
 
-		return Result.succ(pageData);
+		return Result.success(pageData);
 	}
 
 	@PostMapping("/save")
@@ -67,7 +67,7 @@ public class SysRoleController extends BaseController {
 		sysRole.setStatu(Const.STATUS_ON);
 
 		sysRoleService.save(sysRole);
-		return Result.succ(sysRole);
+		return Result.success(sysRole);
 	}
 
 	@PostMapping("/update")
@@ -81,7 +81,7 @@ public class SysRoleController extends BaseController {
 		// 更新缓存
 		sysUserService.clearUserAuthorityInfoByRoleId(sysRole.getId());
 
-		return Result.succ(sysRole);
+		return Result.success(sysRole);
 	}
 
 	@PostMapping("/delete")
@@ -101,7 +101,7 @@ public class SysRoleController extends BaseController {
 			sysUserService.clearUserAuthorityInfoByRoleId(id);
 		});
 
-		return Result.succ("");
+		return Result.success("");
 	}
 
 	@Transactional
@@ -126,7 +126,7 @@ public class SysRoleController extends BaseController {
 		// 删除缓存
 		sysUserService.clearUserAuthorityInfoByRoleId(roleId);
 
-		return Result.succ(menuIds);
+		return Result.success(menuIds);
 	}
 
 }

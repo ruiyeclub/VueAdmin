@@ -7,15 +7,15 @@ import java.io.Serializable;
 @Data
 public class Result implements Serializable {
 
-	private int code;
+	private Integer code;
 	private String msg;
 	private Object data;
 
-	public static Result succ(Object data) {
-		return succ(200, "操作成功", data);
+	public static Result success(Object data) {
+		return success(ResultCode.SUCCESS.getCode(), "操作成功", data);
 	}
 
-	public static Result succ(int code, String msg, Object data) {
+	public static Result success(int code, String msg, Object data) {
 		Result r = new Result();
 		r.setCode(code);
 		r.setMsg(msg);
@@ -23,11 +23,11 @@ public class Result implements Serializable {
 		return r;
 	}
 
-	public static Result fail(String msg) {
-		return fail(400, msg, null);
+	public static Result failed(String msg) {
+		return failed(400, msg, null);
 	}
 
-	public static Result fail(int code, String msg, Object data) {
+	public static Result failed(int code, String msg, Object data) {
 		Result r = new Result();
 		r.setCode(code);
 		r.setMsg(msg);

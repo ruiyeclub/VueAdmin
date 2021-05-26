@@ -49,7 +49,7 @@ public class SysUserController extends BaseController {
 		List<SysRole> roles = sysRoleService.listRolesByUserId(id);
 
 		sysUser.setSysRoles(roles);
-		return Result.succ(sysUser);
+		return Result.success(sysUser);
 	}
 
 	@GetMapping("/list")
@@ -64,7 +64,7 @@ public class SysUserController extends BaseController {
 			u.setSysRoles(sysRoleService.listRolesByUserId(u.getId()));
 		});
 
-		return Result.succ(pageData);
+		return Result.success(pageData);
 	}
 
 	@PostMapping("/save")
@@ -82,7 +82,7 @@ public class SysUserController extends BaseController {
 		sysUser.setAvatar(Const.DEFULT_AVATAR);
 
 		sysUserService.save(sysUser);
-		return Result.succ(sysUser);
+		return Result.success(sysUser);
 	}
 
 	@PostMapping("/update")
@@ -92,7 +92,7 @@ public class SysUserController extends BaseController {
 		sysUser.setUpdated(LocalDateTime.now());
 
 		sysUserService.updateById(sysUser);
-		return Result.succ(sysUser);
+		return Result.success(sysUser);
 	}
 
 	@Transactional
@@ -103,7 +103,7 @@ public class SysUserController extends BaseController {
 		sysUserService.removeByIds(Arrays.asList(ids));
 		sysUserRoleService.remove(new QueryWrapper<SysUserRole>().in("user_id", ids));
 
-		return Result.succ("");
+		return Result.success("");
 	}
 
 	@Transactional
@@ -128,7 +128,7 @@ public class SysUserController extends BaseController {
 		SysUser sysUser = sysUserService.getById(userId);
 		sysUserService.clearUserAuthorityInfo(sysUser.getUsername());
 
-		return Result.succ("");
+		return Result.success("");
 	}
 
 	@PostMapping("/repass")
@@ -141,7 +141,7 @@ public class SysUserController extends BaseController {
 		sysUser.setUpdated(LocalDateTime.now());
 
 		sysUserService.updateById(sysUser);
-		return Result.succ("");
+		return Result.success("");
 	}
 
 	@PostMapping("/updatePass")
@@ -151,13 +151,13 @@ public class SysUserController extends BaseController {
 
 		boolean matches = passwordEncoder.matches(passDto.getCurrentPass(), sysUser.getPassword());
 		if (!matches) {
-			return Result.fail("旧密码不正确");
+			return Result.failed("旧密码不正确");
 		}
 
 		sysUser.setPassword(passwordEncoder.encode(passDto.getPassword()));
 		sysUser.setUpdated(LocalDateTime.now());
 
 		sysUserService.updateById(sysUser);
-		return Result.succ("");
+		return Result.success("");
 	}
 }
